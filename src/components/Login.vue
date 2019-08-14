@@ -18,7 +18,7 @@
             id="email"
             placeholder="email@email.com"
           />
-          <label for="password">Passoword</label>
+          <label for="password">Password</label>
           <input
             v-model.trim="loginForm.password"
             type="text"
