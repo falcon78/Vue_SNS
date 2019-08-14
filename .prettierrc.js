@@ -3,5 +3,6 @@ module.exports = {
   semi: true,
   singleQuote: true,
   bracketSpacing: false,
-  arrowParens: "always"
+  arrowParens: 'always',
+  tabWidth: 2,
 };
