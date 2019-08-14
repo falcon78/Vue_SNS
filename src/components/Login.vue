@@ -29,8 +29,12 @@
             Submit
           </button>
           <div class="extras" style="margin: 10px;">
-            <a href="#">Forgot Password</a>
-            <a href="#">Create an Account</a>
+            <router-link to="/forgot">
+              Forgot Password
+            </router-link>
+            <router-link to="/signup">
+              Create an Account
+            </router-link>
           </div>
         </form>
       </div>
@@ -40,6 +44,7 @@
 
 <script>
 import * as fb from '../firebaseConfig';
+import router from 'vue-router';
 export default {
   data() {
     return {
@@ -57,7 +62,7 @@ export default {
           this.loginForm.password
         )
         .then((user) => {
-          this.$store.commit('setCurrentUser', user);
+          this.$store.commit('setCurrentUser', user.user);
           this.$store.dispatch('fetchUserProfile');
           this.$router.push('/');
         })

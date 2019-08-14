@@ -214,3 +214,11 @@ form {
 .fade-leave-to {
 	opacity: 0;
 }
+
+
+button {
+	transition: all 0.2s ease-in-out;
+}
+button:hover {
+	transform: scale(1.05);
+}
