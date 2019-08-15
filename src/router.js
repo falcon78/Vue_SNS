@@ -4,7 +4,6 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Settings from './components/Settings';
 import SignUp from './components/SignUp';
-import ForgotPass from './components/ForgotPass';
 import * as fb from './firebaseConfig';
 
 Vue.use(Router);
@@ -32,15 +31,13 @@ const router = new Router({
     {
       path: 'settings',
       component: Settings,
-      requiresAuth: true,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/signup',
       component: SignUp,
-    },
-    {
-      path: '/forgot',
-      component: ForgotPass,
     },
   ],
 });
