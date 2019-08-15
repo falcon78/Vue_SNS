@@ -11,10 +11,22 @@ fb.auth.onAuthStateChanged((user) => {
   }
 });
 
+fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot((querySnapshot) => {
+  const postArray = [];
+  querySnapshot.forEach((doc) => {
+    postArray.push({
+      post: doc.data(),
+      id: doc.id,
+    });
+  });
+  store.commit('setPosts', postArray);
+});
+
 const store = new Vuex.Store({
   state: {
     currentUser: null,
     userProfile: {},
+    posts: [],
     error: null,
   },
   actions: {
@@ -59,6 +71,9 @@ const store = new Vuex.Store({
     },
     setError(state, error) {
       state.error = error;
+    },
+    setPosts(state, posts) {
+      state.posts = posts;
     },
   },
 });
