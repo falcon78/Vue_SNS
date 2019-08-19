@@ -13,10 +13,6 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '*',
-      redirect: '/dashboard',
-    },
-    {
       path: '/login',
       name: 'login',
       component: Login,
@@ -29,7 +25,7 @@ const router = new Router({
       },
     },
     {
-      path: 'settings',
+      path: '/settings',
       component: Settings,
       meta: {
         requiresAuth: true,
@@ -38,6 +34,10 @@ const router = new Router({
     {
       path: '/signup',
       component: SignUp,
+    },
+    {
+      path: '/',
+      redirect: '/dashboard',
     },
   ],
 });

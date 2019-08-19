@@ -3,7 +3,7 @@
     <section>
       <div class="col1">
         <div class="profile">
-          <h5>{{ username }}</h5>
+          <h5>{{ userProfile.name }}</h5>
           <div class="create-post">
             <p>create a post</p>
             <form @submit.prevent>
@@ -20,7 +20,25 @@
         </div>
       </div>
       <div class="col2">
-        <div>
+        <div v-if="posts.length">
+          <div v-for="post in posts" class="post">
+            <h5>{{ post.userName }}</h5>
+            <span> {{ post.createdOn | formatDate }}</span>
+            <p>{{ post.content | trimLength }}</p>
+            <ul>
+              <li>
+                <a> comments {{ post.comments }}</a>
+              </li>
+              <li>
+                <a> likes {{ post.likes }}</a>
+              </li>
+              <li>
+                <a>view full post</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-else>
           <p class="no-results">There are currently no posts</p>
         </div>
       </div>
@@ -31,17 +49,17 @@
 <script>
 import * as fb from '../firebaseConfig';
 import {mapState} from 'vuex';
+import moment from 'moment';
 export default {
   data() {
     return {
-      username: this.$store.state.userProfile.name,
       post: {
         content: '',
       },
     };
   },
   computed: {
-    ...mapState(['userProfile', 'currentUser']),
+    ...mapState(['userProfile', 'currentUser', 'posts']),
   },
 
   methods: {
@@ -61,6 +79,21 @@ export default {
         .catch((err) => {
           this.$store.commit('setError', err);
         });
+    },
+  },
+  filters: {
+    formatDate(val) {
+      if (!val) {
+        return '-';
+      }
+      const date = val.toDate();
+      return moment(date).fromNow();
+    },
+    trimLength(val) {
+      if (val.length < 200) {
+        return val;
+      }
+      return `${val.substring(0, 200)}...`;
     },
   },
 };
